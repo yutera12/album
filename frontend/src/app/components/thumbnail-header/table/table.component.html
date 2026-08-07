@@ -1,0 +1,43 @@
+<table>
+  <colgroup>
+    <col [style.width.px]="playlistTabWidth()">
+
+    @for (x of yearMonthMaps(); track x.year) {
+      @for (_ of x.months; track $index) {
+        <col [style.width.px]="monthTabWidth()">
+      }
+    }
+  </colgroup>
+
+  <tr align="left">
+    <th></th>
+
+    @for (x of yearMonthMaps(); track x.year) {
+      <th [attr.colspan]="x.months.length">
+        {{ x.year }}
+      </th>
+    }
+  </tr>
+
+  <!-- 月 -->
+  <tr align="center">
+    <td
+     [class.selected]="0 === month()"
+     (click)="goToPlaylistPage()">
+      Playlist
+    </td>
+
+    @for (x of yearMonthMaps(); track x.year) {
+      @for (mon of x.months; track mon) {
+
+        <td
+          [class.selected]="(x.year * 100 + mon) === month()"
+          (click)="goToMonthPage(x.year,  mon)"
+        >
+          {{ mon }}
+        </td>
+
+      }
+    }
+  </tr>
+</table>

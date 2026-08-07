@@ -1,0 +1,10 @@
+@if (month() === 0) {
+  @if (tag() !== ''){
+    @if (section() === ''){  
+      <u (click)="goToThumbnailPage('')">Playlist</u> > {{ tag() }}
+    } @else {
+      <u (click)="goToThumbnailPage('')">Playlist</u> >
+      <u (click)="goToThumbnailPage(tag())">{{ tag() }}</u> > {{ section() }}
+    }
+  }
+}

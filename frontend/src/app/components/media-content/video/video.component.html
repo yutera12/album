@@ -1,0 +1,10 @@
+<video
+  #videoPlayer
+  id="video"
+  controls
+  controlsList="nodownload"
+  (contextmenu)="$event.preventDefault()"
+  [src]="src()"
+  preload="auto"
+  class="player-content">
+</video>

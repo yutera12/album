@@ -1,0 +1,15 @@
+.line {
+  /* 位置はコード側で制御 */
+  position: absolute;
+  border-bottom: 1px solid var(--mat-sys-outline);
+}
+
+.legend {
+  position: absolute;
+  font-size: 11px;
+  color: var(--mat-sys-secondary);
+}
+
+u {
+  cursor: pointer;
+}

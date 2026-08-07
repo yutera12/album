@@ -1,0 +1,29 @@
+.nav {
+  padding-top: 10px;
+  background-color: var(--mat-sys-surface-container);
+}
+
+.title {
+  margin: 0 10px 10px 20px;
+  font-size: 30px;
+  color: var(--mat-sys-on-surface);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gantt {
+  position: relative;
+  margin-top: 2px;
+}
+
+.table-gantt {
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background-color: var(--mat-sys-surface-container);
+}
+
+.logout {
+  cursor: pointer;
+}

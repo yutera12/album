@@ -1,0 +1,16 @@
+<nav class="nav">
+  <div class="title">アルバム
+    <button class="logout" (click)="logout()">ログアウト</button>
+  </div>
+  <div class="table-gantt" [style.height.px]="baseHeight + lineGapY * birthdays().length">
+    <table-month [monthTabWidth]="monthTabWidth" [playlistTabWidth]="playlistTabWidth"></table-month>
+    <div class="gantt">
+      <gantt [monthTabWidth]="monthTabWidth"
+          [playlistTabWidth]="playlistTabWidth"
+          [lineGapX]="lineGapX"
+          [lineGapY]="lineGapY"
+          [legendMarginTop]="legendMarginTop"
+      ></gantt>
+    </div>
+  </div>
+</nav>

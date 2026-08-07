@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Angular Material Theme                                                     */
+/* -------------------------------------------------------------------------- */
+
+html {
+  height: 100%;
+
+  @include mat.theme((
+    color: (
+      theme-type: light,
+      primary: mat.$green-palette,
+      tertiary: mat.$red-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  color-scheme: light;
+  background-color: white;
+  line-height: 1.2;
+}

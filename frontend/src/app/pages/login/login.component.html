@@ -1,0 +1,63 @@
+<mat-card class="login-card">
+  <mat-card-header class="login-header">
+    <mat-card-title>ログイン</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>ユーザー名</mat-label>
+
+      <input
+        matInput
+        [ngModel]="username()"
+        (ngModelChange)="username.set($event)"
+        autocomplete="username">
+
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>パスワード</mat-label>
+
+      <input
+        matInput
+        [type]="hidePassword() ? 'password' : 'text'"
+        [ngModel]="password()"
+        (ngModelChange)="password.set($event)"
+        autocomplete="current-password">
+      
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="hidePassword.set(!hidePassword())">
+
+        <mat-icon>
+          {{ hidePassword() ? 'visibility_off' : 'visibility' }}
+        </mat-icon>
+
+      </button>
+
+    </mat-form-field>
+
+    @if (errorMessage()) {
+      <div class="login-error">
+        <mat-icon>error</mat-icon>
+        <span>{{ errorMessage() }}</span>
+      </div>
+    }
+
+  </mat-card-content>
+
+  <mat-card-actions>
+
+    <button
+      mat-flat-button
+      color="primary"
+      class="full-width"
+      (click)="login()">
+      ログイン
+    </button>
+
+  </mat-card-actions>
+</mat-card>

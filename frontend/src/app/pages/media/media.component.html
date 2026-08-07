@@ -1,0 +1,31 @@
+@let item = currentItem();
+@if (item){
+  <div class="player-container">
+    @if (mediaType()=="photo") {
+      <app-photo [item]="item"></app-photo>
+    } @else if (mediaType() == "video"){
+      <app-video [item]="item"></app-video>
+    }
+    <div
+      (mouseenter)="mover()"
+      (mouseleave)="mleave()"
+    >
+      @if (tooltip()) {
+        <div class="tooltip">ホーム画面に戻る</div>
+      }
+      <div class="circle-button-bg"
+          (click)="returnToThumbnailPage()"
+      ></div>
+      <img src="home.png" class="circle-button-icon"
+          (click)="returnToThumbnailPage()"
+          alt="ホーム画面に戻る"
+      >
+    </div>
+
+    @if (mediaType() == "photo"){
+      <div class="player-content-photo">
+        {{ item.year }}年{{ item.month }}月{{ item.day }}日
+      </div>
+    }
+  </div>
+}

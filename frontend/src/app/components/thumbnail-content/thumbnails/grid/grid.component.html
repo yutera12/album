@@ -1,0 +1,64 @@
+<div class="grid">
+  @for (item of items(); track item.thumbnailFileName; let i = $index) {
+    <div [ngStyle]="calcAspectFitMargin(item.aspectRatio)">
+
+      <!-- タイトル表示 -->
+      @if (item.title != null){
+        <div class="title">
+          {{ item.title }}
+        </div>
+      }
+
+      <!-- サムネイル画像 -->
+      <img
+        loading="lazy"
+        [src]="src(item)"
+        class="grid-img"
+        (click)="onImageClick(item.id, item.title)"
+      >
+
+      @if (isAdmin() && month() !== 0) {
+  
+        <!-- ファイル名表示 -->
+        <div>{{ item.favorite ? '★ ' : '' }}{{ item.fileName }}</div>
+        <!-- favorite　編集 -->
+        <label class="tag-label">
+          <input
+            type="checkbox"
+            [checked]="item.favorite"
+            (change)="favoriteToggle(item,  $event)"
+          /> ★ </label>
+
+        <!-- tag 編集 -->
+        @for (tag of tagList() ; track tag) {
+          <label class="tag-label">
+            <input
+              type="checkbox"
+              [checked]="item.tag.includes(tag)"
+              (change)="tagToggle(item, tag, $event)"
+            />
+            {{ tag }}
+          </label>
+        }
+      }
+
+      <!-- 日付・動画の長さ表示 -->
+      @if (displayDateTime()){
+        <div class="date-time">
+          <div>
+            @if ("totalTime" in item && item.totalTime != null) {
+              {{ formatSecondsToJapaneseTime(item.totalTime) }}
+            }
+          </div>
+          <div class="date">
+            @if (month() !== 0) {
+              {{ item.month }}月{{ item.day }}日
+            } @else {
+              {{ item.year }}年{{ item.month }}月{{ item.day }}日
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
