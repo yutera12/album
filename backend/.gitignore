@@ -1,0 +1,9 @@
+.env
+info.json
+
+__pycache__/
+*.py[cod]
+
+/assets/
+
+/data/
