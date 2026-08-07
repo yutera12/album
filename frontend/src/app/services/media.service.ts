@@ -83,7 +83,7 @@ export class MediaService {
       toObservable(this._reload)
     ]).pipe(
       switchMap(([filter, _]) => {
-        if (filter.month !== 0) {
+        if (filter.month !== 0 || filter.section !== "") {
           return of([] as Media[]);
         }
 
