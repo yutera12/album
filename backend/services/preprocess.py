@@ -296,9 +296,14 @@ def _validate_files(actual_files: list[str], info_files: dict):
     missing_in_files = expected - actual
 
     if missing_in_info:
+        txt = ''
+        for f in sorted(missing_in_info):
+            txt += '"' + f + '": {\n'
+            txt += '  "tag": [],\n'
+            txt += '  "favorite": false\n'
+            txt += '},\n'
         raise ValueError(
-            "ファイルが存在するのにもかかわらずinfo.jsonに存在しない:\n"
-            + "\n".join(sorted(missing_in_info))
+            f"ファイルが存在するのにもかかわらずinfo.jsonに存在しない。次の内容をinfo.jsonに記載すること。\n{txt}"
         )
 
     if missing_in_files:
