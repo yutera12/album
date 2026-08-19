@@ -4,21 +4,19 @@
 
       <span
         class="line"
-        [ngStyle]="getGanttPosition(
+        [ngStyle]="getLinePosition(
           item.x1,
           item.x2,
-          num,
-          true
+          num
         )">
       </span>
 
       <span
         class="legend"
-        [ngStyle]="getGanttPosition(
+        [ngStyle]="getLegendPosition(
           item.x1,
           item.x2,
-          num,
-          false
+          num
         )">
         {{ item.label }}
       </span>

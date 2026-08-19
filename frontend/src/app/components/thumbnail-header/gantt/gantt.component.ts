@@ -131,21 +131,61 @@ export class GanttComponent {
     return result;
   });
   
-  
-  getGanttPosition(x1:number, x2:number, num:number, line:boolean) {
-    if (x2 < 0){
-      x2 = this.totalMonths()
+  /**
+   * line / legend 共通の位置計算（width, marginLeft, 基準となるmarginTop）
+   */
+  private getBasePosition(x1: number, x2: number, num: number) {
+    if (x2 < 0) {
+      x2 = this.totalMonths();
     }
+
     const width = (x2 - x1) * this.monthTabWidth() - this.lineGapX() + 'px';
     const marginLeft = x1 * this.monthTabWidth() + this.playlistTabWidth() + 'px';
-    const marginTop = line
-      ? num * this.lineGapY() + 'px'
-      : num * this.lineGapY() + this.legendMarginTop() + 'px';
+    const marginTopBase = num * this.lineGapY();
+
+    return { width, marginLeft, marginTopBase };
+  }
+
+  /**
+   * ガントの「線」の位置
+   */
+  getLinePosition(x1: number, x2: number, num: number) {
+    const { width, marginLeft, marginTopBase } = this.getBasePosition(x1, x2, num);
 
     return {
       width,
       marginLeft,
-      marginTop
+      marginTop: marginTopBase + 'px'
+    };
+  }
+
+  /**
+   * ガントの「凡例（ラベル）」の位置
+   */
+  getLegendPosition(x1: number, x2: number, num: number) {
+    const { width, marginLeft, marginTopBase } = this.getBasePosition(x1, x2, num);
+
+    return {
+      width,
+      marginLeft,
+      marginTop: marginTopBase + this.legendMarginTop() + 'px'
     };
   }
 }
+//   getGanttPosition(x1:number, x2:number, num:number, line:boolean) {
+//     if (x2 < 0){
+//       x2 = this.totalMonths()
+//     }
+//     const width = (x2 - x1) * this.monthTabWidth() - this.lineGapX() + 'px';
+//     const marginLeft = x1 * this.monthTabWidth() + this.playlistTabWidth() + 'px';
+//     const marginTop = line
+//       ? num * this.lineGapY() + 'px'
+//       : num * this.lineGapY() + this.legendMarginTop() + 'px';
+
+//     return {
+//       width,
+//       marginLeft,
+//       marginTop
+//     };
+//   }
+// }
