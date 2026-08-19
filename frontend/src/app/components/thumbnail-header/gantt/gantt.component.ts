@@ -97,7 +97,7 @@ export class GanttComponent {
 
       for (let age = 0; age < MAX_AGE; age++) {
 
-        if (person.year + age >= maps[maps.length - 1].year) {
+        if (person.year + age > maps[maps.length - 1].year) {
           break;
         }
 
