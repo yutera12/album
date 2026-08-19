@@ -274,7 +274,7 @@ def _build_media(
     )
 
 
-def _validate_files(actual_files: list[str], info_files: dict):
+def _validate_files(actual_files: list[str], info_files: dict, media_type: Literal["video", "photo"]):
     """
     画像・動画ファイルと ``info.json`` の整合性を検証する。
 
@@ -284,6 +284,7 @@ def _validate_files(actual_files: list[str], info_files: dict):
     Args:
         actual_files: 実際に存在するファイル名一覧。
         info_files: ``info.json`` の対象セクション。
+        media_type: メディアタイプ("photo" or "video")
 
     Raises:
         ValueError:
@@ -298,14 +299,23 @@ def _validate_files(actual_files: list[str], info_files: dict):
     if missing_in_info:
         txt = ''
         for f in sorted(missing_in_info):
-            txt += '"' + f + '": {\n'
-            txt += '  "tag": [],\n'
-            txt += '  "favorite": false\n'
-            txt += '},\n'
-        raise ValueError(
-            f"ファイルが存在するのにもかかわらずinfo.jsonに存在しない。次の内容をinfo.jsonに記載すること。\n{txt}"
-        )
+            if media_type == "photo":
+                txt += '"' + f + '": {\n'
+                txt += '  "tag": [],\n'
+                txt += '  "favorite": false\n'
+                txt += '},\n'
+            elif media_type == "video":
+                txt += '"' + f + '": {\n'
+                txt += '  "thumbnail": [*, *],\n'
+                txt += '  "tag": [],\n'
+                txt += '  "favorite": false\n'
+                txt += '},\n'
+            else:
+                raise ValueError("Invalid media type")
 
+        raise ValueError(
+            f'ファイルが存在するのにもかかわらずinfo.jsonに存在しない。次の内容をinfo.jsonの"{media_type}"セクションに記載すること。\n{txt}'
+        )
     if missing_in_files:
         raise ValueError(
             "info.jsonに存在するのにもかかわらずファイルとして存在しない:\n"
@@ -372,8 +382,8 @@ def preprocess() -> AppState:
     with INFO_JSON.open("r", encoding="utf-8") as f:
         info_input = json.load(f)
 
-    _validate_files(photo_files, info_input["photo"])
-    _validate_files(movie_files, info_input["video"])
+    _validate_files(photo_files, info_input["photo"], "photo")
+    _validate_files(movie_files, info_input["video"], "video")
 
     tags_in_files = set()
     for item in (*info_input["photo"].values(), *info_input["video"].values()):
