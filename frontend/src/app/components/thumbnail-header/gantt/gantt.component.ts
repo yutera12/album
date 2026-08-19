@@ -93,7 +93,7 @@ export class GanttComponent {
 
     for (const person of this.timelineService.birthdays()) {
 
-      const data: Record<string, [number, number]> = {};
+      const data: { label: string; x1: number; x2: number }[] = [];
 
       for (let age = 0; age < MAX_AGE; age++) {
 
@@ -119,7 +119,7 @@ export class GanttComponent {
           continue;
         }
 
-        data[`${person.name} ${age}歳`] = [x1, x2];
+        data.push({ label: `${person.name} ${age}歳`, x1, x2 });
       }
 
       result.push({

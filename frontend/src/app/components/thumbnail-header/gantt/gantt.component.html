@@ -1,12 +1,12 @@
 <div class="gant">
   @for (info of infoGant(); track $index; let num = $index) {
-    @for (item of info.gant | keyvalue; track item.key) {
+    @for (item of info.gant; track item.label) {
 
       <span
         class="line"
         [ngStyle]="getGanttPosition(
-          item.value[0],
-          item.value[1],
+          item.x1,
+          item.x2,
           num,
           true
         )">
@@ -15,12 +15,12 @@
       <span
         class="legend"
         [ngStyle]="getGanttPosition(
-          item.value[0],
-          item.value[1],
+          item.x1,
+          item.x2,
           num,
           false
         )">
-        {{ item.key }}
+        {{ item.label }}
       </span>
     }
   }
