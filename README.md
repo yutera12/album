@@ -96,16 +96,16 @@ flowchart TB
 
     ```
     backend/
-     ├── assets/
-     │    └── media/
-     │          ├── yyyymmdd*.mp4
-     │          └── yyyymmdd*.jpeg
-     └── info.json
+    └── assets/
+        ├── media/
+        |   ├── yyyymmdd*.mp4
+        |   └── yyyymmdd*.jpeg
+        └── info.json
     ```
 
 
     メディアファイルを`backend/assets/media/`に配置します。ファイル名は yyyymmdd (Ex: `20260612-1.mp4`)で始まる必要があります。ファイル名で、撮影日を判断しています。
-    また、メディアのメタデータ情報を記載した `info.json` を`backend/`に配置します。`info.json`の書き方は`backend/samples/info.json`を参考のこと。`backend/samples/`にはメディアファイルのサンプルも格納しています。
+    また、メディアのメタデータ情報を記載した `info.json` を`backend/assets/`に配置します。`info.json`の書き方は`backend/samples/info.json`を参考のこと。`backend/samples/`にはメディアファイルのサンプルも格納しています。
 
 
 
