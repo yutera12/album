@@ -98,8 +98,8 @@ flowchart TB
     backend/
     └── assets/
         ├── media/
-        |   ├── yyyymmdd*.mp4
-        |   └── yyyymmdd*.jpeg
+        │   ├── yyyymmdd*.mp4
+        │   └── yyyymmdd*.jpeg
         └── info.json
     ```
 

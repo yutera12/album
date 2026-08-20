@@ -10,19 +10,19 @@ backend/
 │   ├── media/                  # メディアファイル（画像・動画）
 │   └── info.json               # メディアのメタデータ
 ├── data/                     # main.pyやスクリプトの実行によって生成されるデータ（Git管理外）
-│   ├── app.db                  # ユーザ管理用SQLite DB （再生成不可）
-│   ├── info_photo_cache.json   # 画像のメタデータのキャッシュファイル（削除してもmain.pyの実行により再生）
-│   ├── info_video_cache.json   # 動画のメタデータのキャッシュファイル（削除してもmain.pyの実行により再生）
-│   └── thumbnails/             # サムネイルデータ（削除してもmain.pyの実行により再生）
+│   ├── app.db                  # ユーザ管理用SQLite DB（再生成不可）
+│   ├── info_photo_cache.json   # 画像のメタデータのキャッシュファイル（削除してもmain.pyの実行により再生成）
+│   ├── info_video_cache.json   # 動画のメタデータのキャッシュファイル（削除してもmain.pyの実行により再生成）
+│   └── thumbnails/             # サムネイルデータ（削除してもmain.pyの実行により再生成）
 ├── database/                 # ユーザ管理用SQLite DBの操作
 │   ├── database.py             # ユーザ管理用SQLite DB操作のためのDB接続・セッション管理を設定するコード
-│   └── user_repository.py      # ユーザ管理用SQLite DB操作（CURD）を担当するコード
+│   └── user_repository.py      # ユーザ管理用SQLite DB操作（CRUD）を担当するコード
 ├── models/                   # データの構造を定義
 │   ├── api_model.py            # Pydanticモデル
 │   └── auth_models.py          # SQLAlchemyモデル
 ├── queries/                  # データから必要な情報を検索・抽出する処理
 │   ├── media.py                # メディアの月別・タグ別フィルタリング処理
-│   └── tag.py                  # info.jsonに記されたtag情報の中から必要個所を取得する処理 
+│   └── tag.py                  # info.jsonに記されたtag情報の中から必要箇所を取得する処理
 ├── samples/                  # メディアファイルとinfo.jsonのサンプル
 ├── scripts/                  # 管理用スクリプト（ユーザー作成・一覧確認）
 ├── services/                 # 認証・前処理・サムネイル生成・タグ更新などのロジック
@@ -36,8 +36,7 @@ backend/
 │   ├── file_utils.py           # ファイル関係の共通処理
 │   ├── image_utils.py          # 画像関係の共通処理
 │   ├── time_utils.py           # 時刻関係の共通処理
-│   └── json_store_utils.py     # jsonデータの読み書きメディアのメタデータ（アスペクト比など）のキャッシュを作成するロジック
-|                               #   ※一度算出したメタデータなどの値の再計算を避けて、サーバの起動時間を削減
+│   └── json_store_utils.py     # JSONデータの読み書き、メディアのメタデータ（アスペクト比など）のキャッシュを作成するロジック
 ├── .env                      # 環境変数ファイル（Git管理外）
 └── main.py                   # エントリーポイント（FastAPIアプリ本体）
 ```
