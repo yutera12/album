@@ -8,6 +8,7 @@ from pydantic import validate_call
 from typing import Literal
 import uuid
 
+from paths import PHOTO_CACHE, VIDEO_CACHE, INFO_JSON_PATH, MEDIA_DIR, THUMBNAIL_DIR
 from models.api_model import AppState, Media, BirthInfo, TagCategory, YearMonth
 from utils.json_store_utils import JsonStore
 from utils.date_utils import extract_date_from_filename
@@ -16,16 +17,6 @@ from utils.time_utils import min_sec_to_sec
 from utils.date_utils import create_year_month_map
 from utils.file_utils import select_files
 
-
-ROOT = Path(__file__).parent.parent
-ASSETS_DIR = ROOT / "assets"
-DATA_DIR = ROOT / "data"
-DATA_DIR.mkdir(exist_ok=True)
-MEDIA_DIR = ASSETS_DIR / "media"
-THUMBNAIL_DIR = DATA_DIR / "thumbnails"
-INFO_JSON = ASSETS_DIR / "info.json"
-PHOTO_CACHE = DATA_DIR / "info_photo_cache.json"
-VIDEO_CACHE = DATA_DIR / "info_video_cache.json"
 SAVE_INTERVAL = 10
 TEMP_THUMBNAIL_NAME = "__thumbnail_tmp.jpg"
 
@@ -60,9 +51,6 @@ def _preprocess_photo(files: list[str]) -> dict[str, dict[str, float | str]]:
         - ``assets/thumbnails`` にサムネイル画像を生成する。
         - ``info_photo_cache.json`` を更新する。
     """
-
-    THUMBNAIL_DIR.mkdir(parents=True, exist_ok=True)
-
     cache = JsonStore(PHOTO_CACHE)
 
     media_info = {}
@@ -379,7 +367,7 @@ def preprocess() -> AppState:
             ``ffprobe`` の実行に失敗した場合。
     """
     photo_files, movie_files = select_files([p.name for p in MEDIA_DIR.iterdir()])
-    with INFO_JSON.open("r", encoding="utf-8") as f:
+    with INFO_JSON_PATH.open("r", encoding="utf-8") as f:
         info_input = json.load(f)
 
     _validate_files(photo_files, info_input["photo"], "photo")

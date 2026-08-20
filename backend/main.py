@@ -1,5 +1,4 @@
 import uvicorn
-from pathlib import Path
 from typing import Annotated, Literal
 from contextlib import asynccontextmanager
 from sqlalchemy.orm import Session
@@ -8,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.responses import FileResponse
 
+from paths import MEDIA_DIR, THUMBNAIL_DIR
 from models.auth_models import Base, User
 from models.api_model import Token, SetTagRequest, SetFavoriteRequest, AppState, BirthInfo, YearMonth, Media
 from queries.media import filter_media_by_month, filter_media_by_tag, filter_media_by_tag_and_section, filter_media_by_tag_without_section_period
@@ -16,11 +16,6 @@ from services.thumbnail import get_random_thumbnails_for_no_tag, get_random_thum
 from services.update import set_tag, set_favorite
 from services.auth import get_db, login, get_current_user, current_user_is_admin
 from database.database import engine
-
-
-BASE_DIR = Path(__file__).resolve().parent
-MEDIA_DIR = BASE_DIR / "assets" / "media"
-THUMBNAIL_DIR = BASE_DIR / "assets" / "thumbnails"
 
 
 # DB初期化

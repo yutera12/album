@@ -2,6 +2,7 @@ import os
 import json
 from pydantic import validate_call
 from models.api_model import Media
+from paths import INFO_JSON_PATH
 
 
 @validate_call
@@ -24,7 +25,7 @@ def set_tag(
         None
     """
     filename = os.path.basename(file_name)
-    with open("info.json", "r", encoding="utf-8") as f:
+    with open(INFO_JSON_PATH, "r", encoding="utf-8") as f:
         info_input = json.load(f)
     info_input[media_type][filename]["tag"] = tags
     with open("info.json", "w", encoding="utf-8") as f:
@@ -55,7 +56,7 @@ def set_favorite(
         None
     """
     filename = os.path.basename(file_name)
-    with open("info.json", "r", encoding="utf-8") as f:
+    with open(INFO_JSON_PATH, "r", encoding="utf-8") as f:
         info_input = json.load(f)
     info_input[media_type][filename]["favorite"] = favorite
     with open("info.json", "w", encoding="utf-8") as f:

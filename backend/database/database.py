@@ -2,16 +2,11 @@ from pathlib import Path
 from collections.abc import Generator
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, declarative_base, sessionmaker
-
+from paths import DATABASE_PATH
 
 # ==========================================================
 # プロジェクトのディレクトリ設定
 # ==========================================================
-
-ROOT_DIR = Path(__file__).resolve().parent.parent
-DATA_DIR = ROOT_DIR / "data"
-DATA_DIR.mkdir(exist_ok=True)
-DATABASE_PATH = DATA_DIR / "app.db"
 DATABASE_URL = f"sqlite:///{DATABASE_PATH}" # SQLAlchemyが使用する接続URL
 
 # ==========================================================
