@@ -9,7 +9,7 @@ from typing import Literal
 import uuid
 
 from models.api_model import AppState, Media, BirthInfo, TagCategory, YearMonth
-from cache.json_cache import JsonCache
+from utils.json_store_utils import JsonStore
 from utils.date_utils import extract_date_from_filename
 from utils.image_utils import scale
 from utils.time_utils import min_sec_to_sec
@@ -63,7 +63,7 @@ def _preprocess_photo(files: list[str]) -> dict[str, dict[str, float | str]]:
 
     THUMBNAIL_DIR.mkdir(parents=True, exist_ok=True)
 
-    cache = JsonCache(PHOTO_CACHE)
+    cache = JsonStore(PHOTO_CACHE)
 
     media_info = {}
     updated = 0
@@ -142,7 +142,7 @@ def _preprocess_video(files: list[str], thumbnail_time: dict[str, tuple[int, flo
 
     THUMBNAIL_DIR.mkdir(parents=True, exist_ok=True)
 
-    cache = JsonCache(VIDEO_CACHE)
+    cache = JsonStore(VIDEO_CACHE)
     updated = 0
     media_info = {}
     for filename in tqdm(files, desc="movie"):

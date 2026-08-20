@@ -4,11 +4,11 @@ from collections.abc import Iterator, MutableMapping
 from typing import Any
 
 
-class JsonCache(MutableMapping[str, Any]):
-    """JSONファイルをdictのように扱うキャッシュ。"""
+class JsonStore(MutableMapping[str, Any]):
+    """JSONファイルを永続化先として使用する辞書型ストア"""
 
-    def __init__(self, filename: str | Path):
-        self.path = Path(filename)
+    def __init__(self, filepath: str | Path):
+        self.path = Path(filepath)
         self._data: dict[str, Any] = {}
 
         if self.path.exists():
