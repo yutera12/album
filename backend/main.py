@@ -74,19 +74,21 @@ async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     db: Session = Depends(get_db),
 ) -> Token:
+    """認証成功時に、アクセスtokenを返すエンドポイント"""
     token = login(db, form_data)
     return token
 
 @app.get("/is-admin", response_model=bool)
 def is_admin(is_admin: Annotated[User, Depends(current_user_is_admin)]):
+    """現在のユーザが管理者権限を持つ場合にTrueを、そうでない場合にFalseを返すエンドポイント"""
     return is_admin
 
 # ------------------------------------------------------------------
 # サムネイル関連エンドポイント
 # ------------------------------------------------------------------
-# 各タグごとにランダムで1枚選択されたサムネイル情報を取得するエンドポイント
 @app.get("/thumbnail-random", response_model=list[Media])
 def get_thumbnail_random(favorite: bool, _: Annotated[User, Depends(get_current_user)], data: AppState = Depends(get_app_state)):
+    """タグごとのランダムで1枚選択されたサムネイル情報を取得するエンドポイント"""
     return get_random_thumbnails_for_all_tags(
         media_list=data.photos + data.videos,
         tag_info=data.tag_info,
@@ -94,9 +96,9 @@ def get_thumbnail_random(favorite: bool, _: Annotated[User, Depends(get_current_
     )
 
 
-# 指定したタグについて、各セクションごとにランダムに1枚選択されたサムネイル情報を取得するエンドポイント
 @app.get("/thumbnail-random/{tag}", response_model=list[Media])
 def get_thumbnail_random_tag(tag: str, favorite: bool, _: Annotated[User, Depends(get_current_user)], data: AppState = Depends(get_app_state)):
+    """指定タグについて、セクションごとのランダムに1枚選択されたサムネイル情報を取得するエンドポイント"""
     if tag == "no-tag":
         return get_random_thumbnails_for_no_tag(
             media_list=data.photos+data.videos,
@@ -112,9 +114,9 @@ def get_thumbnail_random_tag(tag: str, favorite: bool, _: Annotated[User, Depend
 # ------------------------------------------------------------------
 # メディア（写真・動画）取得エンドポイント
 # ------------------------------------------------------------------
-# 指定した月のメディアを取得するエンドポイント
 @app.get("/{media_type}/month/{yyyymm}", response_model=list[Media])
 def get_videos_by_month(media_type: str, yyyymm: str, favorite: bool, _: Annotated[User, Depends(get_current_user)], data: AppState = Depends(get_app_state)):
+    """指定した月のメディアを取得するエンドポイント"""
     target_data = {
         "videos": data.videos,
         "photos": data.photos,
@@ -122,9 +124,9 @@ def get_videos_by_month(media_type: str, yyyymm: str, favorite: bool, _: Annotat
     return filter_media_by_month(target_data, yyyymm, favorite)
 
 
-# 指定したタグ、セクションのメディアを取得するエンドポイント
 @app.get("/{media_type}/tag/{tag}/section/{section}", response_model=list[Media])
 def get_videos_by_tag_section(media_type: Literal["videos", "photos"], tag: str, section: str, favorite: bool, _: Annotated[User, Depends(get_current_user)], data: AppState = Depends(get_app_state)):
+    """指定したタグ、セクションのメディアを取得するエンドポイント"""
     target_data = {
         "videos": data.videos,
         "photos": data.photos,
@@ -147,14 +149,17 @@ def get_videos_by_tag_section(media_type: Literal["videos", "photos"], tag: str,
 # ------------------------------------------------------------------
 @app.get("/tag-list", response_model=list[str])
 def get_tag_list(_: Annotated[User, Depends(get_current_user)], data: AppState = Depends(get_app_state)):
+    """メディアに設定されたタグのリストを返すエンドポイント"""
     return [x.name for x in data.tag_info]
 
 @app.get("/birthdays", response_model=list[BirthInfo])
 def get_birthdays(_: Annotated[User, Depends(get_current_user)], data: AppState = Depends(get_app_state)):
+    """誕生日の情報を返すエンドポイント"""
     return data.birth_info
 
 @app.get("/year-month-map", response_model=list[YearMonth])
 def get_year_month_map(_: Annotated[User, Depends(get_current_user)], data: AppState = Depends(get_app_state)):
+    """メディアが存在する年・月のリストを返すエンドポイント"""
     return data.year_month_map
 
 
@@ -163,6 +168,7 @@ def get_year_month_map(_: Annotated[User, Depends(get_current_user)], data: AppS
 # ----------------------------------------------------------------
 @app.post("/set-tag", response_model=dict)
 def set_tag_(req: SetTagRequest, is_admin: Annotated[User, Depends(current_user_is_admin)], data: AppState = Depends(get_app_state)):
+    """メディアのタグ情報を変更するエンドポイント"""
     if not is_admin:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
@@ -178,6 +184,7 @@ def set_tag_(req: SetTagRequest, is_admin: Annotated[User, Depends(current_user_
 
 @app.post("/set-favorite", response_model=dict)
 def set_favorite_(req: SetFavoriteRequest, is_admin: Annotated[User, Depends(current_user_is_admin)], data: AppState = Depends(get_app_state)):
+    """メディアのお気に入り情報を変更するエンドポイント"""
     if not is_admin:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
@@ -197,6 +204,7 @@ def set_favorite_(req: SetFavoriteRequest, is_admin: Annotated[User, Depends(cur
 # --------
 @app.get("/media/{media_type}/{id}")
 def get_media(response: Response, media_type: Literal["video", "photo"], id: str, data: AppState = Depends(get_app_state)):
+    """メディアを取得するエンドポイント"""
     response.headers["Cache-Control"] = "private, max-age=86400"    # 
 
     target_data = {
@@ -213,7 +221,8 @@ def get_media(response: Response, media_type: Literal["video", "photo"], id: str
 
 
 @app.get("/thumbnail/{media_type}/{id}")
-def get_media(response: Response, media_type: Literal["video", "photo"], id: str, data: AppState = Depends(get_app_state)):
+def get_thumbnail(response: Response, media_type: Literal["video", "photo"], id: str, data: AppState = Depends(get_app_state)):
+    """サムネイルを取得するエンドポイント"""
     response.headers["Cache-Control"] = "private, max-age=86400"
 
     target_data = {
