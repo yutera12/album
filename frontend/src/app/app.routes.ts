@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { ThumbnailComponent } from './pages/thumbnail/thumbnail.component';
 import { MediaComponent } from './pages/media/media.component';
 import { LoginComponent } from './pages/login/login.component'
-import { authGuard } from './services/auth-guard.service';
+import { authGuard } from './services/guards/auth-guard.service';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },

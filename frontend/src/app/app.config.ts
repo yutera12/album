@@ -2,8 +2,8 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 import { provideHttpClient,withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
-import { authInterceptor } from './services/auth-interceptor.service';
-import { camelCaseInterceptor } from './services/camel-case-interceptor.service';
+import { authInterceptor } from './services/interceptors/auth-interceptor.service';
+import { camelCaseInterceptor } from './services/interceptors/camel-case-interceptor.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
