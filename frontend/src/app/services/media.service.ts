@@ -2,9 +2,9 @@ import { Injectable, inject, signal, Signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { switchMap, Observable, combineLatest, of } from 'rxjs';
-import { Media } from '../models/media';
-import { FilterState } from '../models/filter';
-import { environment } from '../../environment';
+import { Media } from '@/models/media';
+import { FilterState } from '@/models/filter';
+import { environment } from '@/../environment';
 
 
 @Injectable({ providedIn: 'root' })

@@ -1,11 +1,11 @@
 import { Component, input, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Media } from '../../../../models/media'
-import { environment } from '../../../../../environment'
-import { NavigationService } from "../../../../services/navigation.service";
-import { EditService } from "../../../../services/edit.service"
-import { MediaService } from "../../../../services/media.service";
-import { AuthService } from "../../../../services/auth.service"
+import { Media } from '@/models/media'
+import { environment } from '@/../environment'
+import { NavigationService } from "@/services/navigation.service";
+import { EditService } from "@/services/edit.service"
+import { MediaService } from "@/services/media.service";
+import { AuthService } from "@/services/auth.service"
 
 @Component({
   selector: "app-grid",

@@ -1,6 +1,6 @@
 import { Component, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { MediaService } from "../../../services/media.service";
+import { MediaService } from "@/services/media.service";
 import { GridComponent } from "./grid/grid.component"
 
 @Component({

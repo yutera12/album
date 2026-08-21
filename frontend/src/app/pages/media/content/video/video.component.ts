@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild, input, computed } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Media } from "../../../models/media"
+import { Media } from "@/models/media"
 import { mediaUrl } from "../media-url"
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, inject, computed } from '@angular/core';
-import { Birthday } from '../../../models/timeline';
-import { TimelineService } from "../../../services/timeline.service";
-import { MediaService } from '../../../services/media.service';
+import { Birthday } from '@/models/timeline';
+import { TimelineService } from "@/services/timeline.service";
+import { MediaService } from '@/services/media.service';
 
 
 @Component({

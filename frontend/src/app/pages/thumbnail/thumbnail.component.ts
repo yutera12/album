@@ -1,14 +1,13 @@
 import { Component, inject, effect, computed } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ActivatedRoute } from '@angular/router';
-import { HeaderComponent } from "../../components/thumbnail-header/thumbnail-header.component";
-import { MediaService } from "../../services/media.service";
-import { EditService } from "../../services/edit.service";
+import { HeaderComponent } from "./header/thumbnail-header.component";
+import { MediaService } from "@/services/media.service";
 import { FormsModule } from '@angular/forms';
-import { BreadcrumbsComponent } from "../../components/thumbnail-content/breadcrumbs/breadcrumbs.component"
-import { TitleComponent } from "../../components/thumbnail-content/title/title.component"
-import { ToggleSwitchComponent } from "../../components/thumbnail-content/toggle-switch/toggle-switch.component"
-import { Thumbnails } from "../../components/thumbnail-content/thumbnails/thumbnails.component";
+import { BreadcrumbsComponent } from "./content/breadcrumbs/breadcrumbs.component"
+import { TitleComponent } from "./content/title/title.component"
+import { ToggleSwitchComponent } from "./content/toggle-switch/toggle-switch.component"
+import { Thumbnails } from "./content/thumbnails/thumbnails.component";
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -22,7 +21,6 @@ export class ThumbnailComponent {
   // ===== DI =====
   private readonly mediaService = inject(MediaService);
   private readonly route = inject(ActivatedRoute);
-  private readonly editService = inject(EditService);
   private readonly queryParamMap = toSignal(this.route.queryParamMap);
 
   // Route parameters

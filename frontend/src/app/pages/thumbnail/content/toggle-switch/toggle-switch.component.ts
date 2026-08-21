@@ -1,8 +1,8 @@
 import { Component, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MediaService } from "../../../services/media.service";
-import { NavigationService } from "../../../services/navigation.service";
+import { MediaService } from "@/services/media.service";
+import { NavigationService } from "@/services/navigation.service";
 
 
 @Component({

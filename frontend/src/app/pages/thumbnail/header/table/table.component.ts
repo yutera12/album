@@ -1,8 +1,8 @@
 import { Component, inject, input } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { TimelineService } from '../../../services/timeline.service';
-import { NavigationService } from "../../../services/navigation.service";
-import { MediaService } from "../../../services/media.service";
+import { TimelineService } from '@/services/timeline.service';
+import { NavigationService } from "@/services/navigation.service";
+import { MediaService } from "@/services/media.service";
 
 @Component({
   selector: 'table-month',

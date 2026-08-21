@@ -2,8 +2,8 @@ import { Component, inject, input } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { TableComponent } from './table/table.component'
 import { GanttComponent } from './gantt/gantt.component'
-import { TimelineService } from "../../services/timeline.service";
-import { AuthService } from "../../services/auth.service";
+import { TimelineService } from "@/services/timeline.service";
+import { AuthService } from "@/services/auth.service";
 
 @Component({
     selector: 'app-header',

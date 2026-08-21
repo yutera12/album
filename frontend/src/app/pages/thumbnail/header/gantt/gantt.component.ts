@@ -1,7 +1,7 @@
 import { Component, inject, input, computed } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { TimelineService } from "../../../services/timeline.service";
-import { YearMonthMap } from "../../../models/timeline";
+import { TimelineService } from "@/services/timeline.service";
+import { YearMonthMap } from "@/models/timeline";
 
 
 const MAX_AGE = 150;

@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { AuthService } from '../../services/auth.service';
-import { NavigationService } from '../../services/navigation.service';
+import { AuthService } from '@/services/auth.service';
+import { NavigationService } from '@/services/navigation.service';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';

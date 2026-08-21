@@ -3,11 +3,11 @@ import { CommonModule } from "@angular/common";
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 
-import { NavigationService } from "../../services/navigation.service";
-import { MediaService } from "../../services/media.service";
-import { PhotoComponent } from "../../components/media-content/photo/photo.component";
-import { VideoComponent } from "../../components/media-content/video/video.component";
-import { MediaType } from "../../models/media";
+import { NavigationService } from "@/services/navigation.service";
+import { MediaService } from "@/services/media.service";
+import { PhotoComponent } from "./content/photo/photo.component";
+import { VideoComponent } from "./content/video/video.component";
+import { MediaType } from "@/models/media";
 
 @Component({
   selector: "app-media",

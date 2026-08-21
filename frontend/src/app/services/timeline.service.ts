@@ -1,9 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Birthday, YearMonthMap } from '../models/timeline';
+import { Birthday, YearMonthMap } from '@/models/timeline';
 import { shareReplay } from 'rxjs';
-import { environment } from '../../environment';
+import { environment } from '@/../environment';
 
 @Injectable({ providedIn: 'root' })
 export class TimelineService {

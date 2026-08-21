@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { MediaType } from '../models/media';
+import { MediaType } from '@/models/media';
 
 @Injectable({
   providedIn: 'root'

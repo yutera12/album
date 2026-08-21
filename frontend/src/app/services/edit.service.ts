@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { environment } from '../../environment';
-import { MediaType } from '../models/media';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { environment } from '@/../environment';
+import { MediaType } from '@/models/media';
 
 
 @Injectable({providedIn: 'root'})
