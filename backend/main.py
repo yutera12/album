@@ -1,3 +1,4 @@
+import argparse
 import uvicorn
 from typing import Annotated, Literal
 from contextlib import asynccontextmanager
@@ -234,4 +235,17 @@ def get_thumbnail(response: Response, media_type: Literal["video", "photo"], id:
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=10000)
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--access-log",
+        action="store_true",
+        help="アクセスログを有効にする",
+    )
+    args = parser.parse_args()
+
+    uvicorn.run(
+        app,
+        host="localhost",
+        port=10000,
+        access_log=args.access_log,
+    )
