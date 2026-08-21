@@ -32,7 +32,6 @@ export class NavigationService {
     } else {
       commands = ['/tag', tag];
     }
-
     this.router.navigate(commands, { queryParams });
   }
 

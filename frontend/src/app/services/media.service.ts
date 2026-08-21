@@ -92,7 +92,7 @@ export class MediaService {
           : `thumbnail-random/${filter.tag}`;
 
         return this.http.get<Media[]>(
-          `${environment.apiUrl}/${url}`, {params: {favorite: this._filter().favorite}}
+          `${environment.apiUrl}/${url}`, {params: {favorite: filter.favorite}}
         );
       })
     ),
@@ -137,13 +137,13 @@ export class MediaService {
       favorite: favorite,
     }));
   }
- 
+
 
   // =====================================================
   // 指定したメディアIDを基準に、前後の位置のメディアを取得する
   // =====================================================
   getMedia(mediaType: string, id: string, pos: number): Media {
-    let medias = []
+    let medias: Media[] = [];
     if (mediaType === "photo"){
       medias = this.photos()
     } else if (mediaType === "video") {

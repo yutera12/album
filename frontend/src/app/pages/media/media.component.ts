@@ -24,7 +24,7 @@ export class MediaComponent {
   video!: VideoComponent;
 
   private readonly navigationService = inject(NavigationService);
-  private readonly  mediaService = inject(MediaService);
+  private readonly mediaService = inject(MediaService);
   private readonly route = inject(ActivatedRoute);
 
   /* -------------------- */
@@ -78,9 +78,6 @@ export class MediaComponent {
     });
   }
 
-  ngOnDestroy() {
-    document.documentElement.style.overflow = "";
-  }
 
   /* -------------------- */
   /* Keyboard Event */
