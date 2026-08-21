@@ -2,6 +2,7 @@ import { Injectable, inject, signal, Signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { switchMap, Observable, combineLatest, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Media } from '@/models/media';
 import { FilterState } from '@/models/filter';
 import { environment } from '@/../environment';
@@ -59,7 +60,9 @@ export class MediaService {
             request$ = of([]);
           }
 
-          return request$
+          return request$.pipe(
+            catchError(() => of([] as Media[]))
+          );
         })
       ),
       { initialValue: [] }
@@ -93,7 +96,9 @@ export class MediaService {
 
         return this.http.get<Media[]>(
           `${environment.apiUrl}/${url}`, {params: {favorite: filter.favorite}}
-        );
+        ).pipe(
+          catchError(() => of([] as Media[]))
+        );;
       })
     ),
     { initialValue: [] }
