@@ -14,13 +14,6 @@ export class EditService {
     { initialValue: [] }
   );
 
-  // readonly isAdmin = toSignal(
-  //   this.http.get<boolean>(`${environment.apiUrl}/is-admin`),
-  //   { initialValue: false }
-  // )
-
-
-
   setTag(
     fileName: string,
     tags: string[],

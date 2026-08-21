@@ -57,8 +57,8 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
-    this.navigationService.goToLoginPage();
     this.adminSignal.set(false);
+    this.navigationService.goToLoginPage();
   }
 
   getToken(): string | null {
