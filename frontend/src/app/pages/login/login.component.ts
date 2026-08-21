@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { AuthService } from '@/services/auth.service';
 import { NavigationService } from '@/services/navigation.service';
@@ -41,10 +42,20 @@ export class LoginComponent {
         this.password.set('');
         this.navigationService.goToThumbnailPage(0, '', '', false);
       },
-      error: (err) => {
+      error: (err: HttpErrorResponse) => {
         console.error(err);
         this.password.set('');
-        this.errorMessage.set('ユーザー名またはパスワードが違います');
+
+        if (err.status === 0) {
+          // サーバーに接続できない（バックエンド未起動、ネットワーク断など）
+          this.errorMessage.set('サーバーに接続できません');
+        } else if (err.status === 401 || err.status === 403) {
+          // 認証エラー
+          this.errorMessage.set('ユーザー名またはパスワードが違います');
+        } else {
+          // その他のサーバーエラー
+          this.errorMessage.set('エラーが発生しました');
+        }
       },
     });
   }
