@@ -38,7 +38,8 @@ backend/
 │   ├── time_utils.py           # 時刻関係の共通処理
 │   └── json_store_utils.py     # JSONデータの読み書き、メディアのメタデータ（アスペクト比など）のキャッシュを作成するロジック
 ├── .env                      # 環境変数ファイル（Git管理外）
-└── main.py                   # エントリーポイント（FastAPIアプリ本体）
+├── main.py                   # エントリーポイント（FastAPIアプリ本体）
+└── logging_config.py         # ログの設定
 ```
 
 

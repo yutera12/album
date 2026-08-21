@@ -1,10 +1,11 @@
 import jwt
-from jwt.exceptions import InvalidTokenError
+from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 from datetime import datetime, timedelta, timezone
 from typing import Annotated, Any
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
+import logging
 
 from models.auth_models import User
 from models.api_model import Token
@@ -12,6 +13,7 @@ from .security import SECRET_KEY, ALGORITHM, password_hash, DUMMY_HASH, ACCESS_T
 from database.database import get_db
 from database.user_repository import get_user
 
+logger = logging.getLogger(__name__)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 def create_access_token(
@@ -94,11 +96,14 @@ def login(
     )
 
     if user is None:
+        logger.warning("Login failed: username=%s", form_data.username)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    else:
+        logger.info("Login succeeded: username=%s", user.username)
 
     if ACCESS_TOKEN_EXPIRE_MINUTES is None:
         access_token = create_access_token(
@@ -147,30 +152,20 @@ async def get_current_user(
         )
         username = payload.get("sub")
         if not isinstance(username, str):
+            logger.warning("Invalid authentication token: missing subject")
             raise credentials_exception
 
-    except InvalidTokenError as exc:
+    except ExpiredSignatureError as exc:
+        logger.warning("Authentication token expired")
         raise credentials_exception from exc
+
+    except InvalidTokenError as exc:
+        logger.warning("Invalid authentication token")
+        raise credentials_exception from exc
+
     user = get_user(db, username)
 
     if user is None:
         raise credentials_exception
 
     return user
-
-
-
-async def current_user_is_admin(
-    current_user: Annotated[User, Depends(get_current_user)],
-) -> bool:
-    """
-    現在のユーザーが管理者権限を持つか確認する。
-
-    Args:
-        current_user: JWT で認証済みのユーザー。
-
-    Returns:
-        管理者権限を持つか否か
-
-    """
-    return current_user.is_admin
