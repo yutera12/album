@@ -16,31 +16,29 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 def create_access_token(
     data: dict[str, Any],
-    expires_delta: timedelta,
+    expires_delta: timedelta | None = None,
 ) -> str:
     """
     JWT アクセストークンを生成する。
 
     Args:
         data: トークンへ埋め込むペイロード。
-        expires_delta: 有効期限。
+        expires_delta: 有効期限。None の場合は無期限。
 
     Returns:
         JWT アクセストークン。
     """
     to_encode = data.copy()
 
-    expire = datetime.now(timezone.utc) + expires_delta
-
-    to_encode["exp"] = expire
+    if expires_delta is not None:
+        expire = datetime.now(timezone.utc) + expires_delta
+        to_encode["exp"] = expire
 
     return jwt.encode(
         to_encode,
         SECRET_KEY,
         algorithm=ALGORITHM,
     )
-
-
 
 
 def authenticate_user(
@@ -102,10 +100,15 @@ def login(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    access_token = create_access_token(
-        data={"sub": user.username},
-        expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
-    )
+    if ACCESS_TOKEN_EXPIRE_MINUTES is None:
+        access_token = create_access_token(
+            data={"sub": user.username},
+        )
+    else:
+        access_token = create_access_token(
+            data={"sub": user.username},
+            expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),
+        )
 
     return Token(
         access_token=access_token,
