@@ -31,6 +31,7 @@ backend/
 │   ├── security.py             # 認証回りの設定を記載
 │   ├── thumbnail.py            # タグ、セクション毎の代表サムネイルをルールに従い選択する機能
 │   └── update.py               # info.jsonの更新機能
+├── tests/                    # pytestのロジック
 ├── utils/                    # 共通処理
 │   ├── date_utils.py           # 日付関係の共通処理
 │   ├── file_utils.py           # ファイル関係の共通処理
@@ -57,6 +58,8 @@ http://localhost:10000/docs
 
 ## スクリプト
 
+- `uv run main.py` - APIの起動
+- `uv run pytest` - pytestの実行
 - `uv run python -m scripts.create_user` — ユーザー作成（対話形式でユーザー名・パスワード・管理者権限を入力）
 - `uv run python -m scripts.list_users` — ユーザー一覧確認
 

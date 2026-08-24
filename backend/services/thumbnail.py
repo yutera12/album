@@ -119,7 +119,7 @@ def get_random_thumbnails_for_no_tag(
     """
     タグ未設定メディアからランダムに1件選択し、サムネイル一覧として返す。
 
-    選択されたメディアには title として "no-tag" を設定する。
+    選択されたメディアには title として "no-section" を設定する。
 
     Args:
         media_list: 写真・動画を含むメディア一覧。
