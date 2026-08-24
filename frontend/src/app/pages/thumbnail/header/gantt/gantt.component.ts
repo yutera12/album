@@ -172,20 +172,3 @@ export class GanttComponent {
     };
   }
 }
-//   getGanttPosition(x1:number, x2:number, num:number, line:boolean) {
-//     if (x2 < 0){
-//       x2 = this.totalMonths()
-//     }
-//     const width = (x2 - x1) * this.monthTabWidth() - this.lineGapX() + 'px';
-//     const marginLeft = x1 * this.monthTabWidth() + this.playlistTabWidth() + 'px';
-//     const marginTop = line
-//       ? num * this.lineGapY() + 'px'
-//       : num * this.lineGapY() + this.legendMarginTop() + 'px';
-
-//     return {
-//       width,
-//       marginLeft,
-//       marginTop
-//     };
-//   }
-// }
