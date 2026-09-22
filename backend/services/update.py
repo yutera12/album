@@ -28,7 +28,7 @@ def set_tag(
     with open(INFO_JSON_PATH, "r", encoding="utf-8") as f:
         info_input = json.load(f)
     info_input[media_type][filename]["tag"] = tags
-    with open("info.json", "w", encoding="utf-8") as f:
+    with open(INFO_JSON_PATH, "w", encoding="utf-8") as f:
         json.dump(info_input, f, indent=2, ensure_ascii=False)
 
     for media in media_list:
@@ -59,7 +59,7 @@ def set_favorite(
     with open(INFO_JSON_PATH, "r", encoding="utf-8") as f:
         info_input = json.load(f)
     info_input[media_type][filename]["favorite"] = favorite
-    with open("info.json", "w", encoding="utf-8") as f:
+    with open(INFO_JSON_PATH, "w", encoding="utf-8") as f:
         json.dump(info_input, f, indent=2, ensure_ascii=False)
 
     for media in media_list:
