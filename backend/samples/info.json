@@ -1,0 +1,65 @@
+{
+  "birth": [
+    {
+      "name": "Person A",
+      "year": 2026,
+      "month": 4,
+      "day": 1
+    },
+    {
+      "name": "Person B",
+      "year": 2026,
+      "month": 5,
+      "day": 15
+    }
+  ],
+  "video": {
+    "20260401.mp4": {
+      "thumbnail": [
+        0,
+        1
+      ],
+      "tag": [],
+      "favorite": true
+    }
+  },
+  "photo": {
+    "20260401.png": {
+      "tag": [
+        "2026春"
+      ],
+      "favorite": false
+    },
+    "20260501.png": {
+      "tag": [
+        "2026春"
+      ],
+      "favorite": true
+    },
+    "20260801.png": {
+      "tag": [],
+      "favorite": true
+    },
+    "20260802.png": {
+      "tag": [],
+      "favorite": false
+    }
+  },
+  "tag_info": [
+    {
+      "name": "2026春",
+      "section": [
+        {
+          "name": "4月",
+          "start": 20260401,
+          "finish": 20260430
+        },
+        {
+          "name": "5月",
+          "start": 20260501,
+          "finish": 20260531
+        }
+      ]
+    }
+  ]
+}
